@@ -1,0 +1,16 @@
+src := $(obj)
+
+include scripts/Kbuild.include
+
+kbuild-dir := ./$(src)
+include $(kbuild-dir)/Makefile
+
+__subdir-y	:= $(patsubst %/,%,$(filter %/, $(obj-y)))
+
+subdir-ymn	:= $(__subdir-y)
+
+__clean: $(subdir-ymn)
+
+$(subdir-ymn):
+	@echo '[ck]----1'
+	$(MAKE) $(clean)=$@
